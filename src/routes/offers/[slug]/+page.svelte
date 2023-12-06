@@ -33,23 +33,3 @@
 		<button class="delete" on:click={handleDeleteClick}>Delete...</button>
 	</div>
 {/if}
-
-<style>
-	h1,
-	p {
-		font-family: Poppins, Arial, Helvetica, sans-serif;
-		color: beige;
-	}
-	button {
-		font-family: Poppins, Arial, Helvetica, sans-serif;
-		color: beige;
-		border-color: beige;
-		border-radius: 5px;
-	}
-	button.modify {
-		background-color: var(--bg-color);
-	}
-	button.delete {
-		background-color: rgb(95, 0, 0);
-	}
-</style>

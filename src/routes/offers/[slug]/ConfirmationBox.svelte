@@ -11,9 +11,9 @@
 </script>
 
 <div>
-	<span>Some message...?</span>
+	<p>Are you sure?</p>
 	<div>
-		<button on:click={handleConfirm}>Confirm</button>
-		<button on:click={handleCancel}>Cancel</button>
+		<button class="cancel" on:click={handleCancel}>Cancel</button>
+		<button class="delete" on:click={handleConfirm}>Confirm</button>
 	</div>
 </div>
