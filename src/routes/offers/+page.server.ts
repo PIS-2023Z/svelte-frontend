@@ -1,5 +1,7 @@
-export const load: PageLoad = async ({ fetch }) => {
+import type { ApiOfferResponse } from '$lib/types';
+import type { PageServerLoad } from './$types';
+export const load: PageServerLoad = async ({ fetch }) => {
 	const response = await fetch('/api');
-	const data = await response.json();
+	const data: ApiOfferResponse = await response.json();
 	return data;
 };

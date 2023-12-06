@@ -1,3 +1,5 @@
+import type { ApiOffer } from './types';
+
 export const enum JobStatus {
 	AVAILABLE = 'Available',
 	EXPIRED = 'Expired',
@@ -16,8 +18,8 @@ export class JobOffer {
 		name: string,
 		expiration_date: Date,
 		date_published: Date,
-		salary?: number,
-		description?: string
+		salary?: number | null,
+		description?: string | null
 	) {
 		this.name = name;
 		this.expiration_date = expiration_date;
@@ -70,5 +72,15 @@ export class JobOffer {
 		if (this._publishing_date.getTime() > this._expiration_date.getTime())
 			return false;
 		return true;
+	}
+
+	static from_api_offer(data: ApiOffer): JobOffer {
+		return new JobOffer(
+			data.name,
+			data.expiration_date,
+			data.date_published,
+			data.salary,
+			data.description
+		);
 	}
 }
