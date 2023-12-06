@@ -1,10 +1,13 @@
 <script lang="ts">
 	import type { JobOffer } from '$lib/index';
-	import { createEventDispatcher } from 'svelte';
 
 	export let offer: JobOffer;
 	export let href: string;
-	const dispatch = createEventDispatcher();
+
+	const subbutton_click = (event: Event) => {
+		event.stopPropagation();
+		console.log('Sub-button pressed.');
+	};
 </script>
 
 <button
@@ -20,6 +23,10 @@
 	<p class="description">
 		{offer.description ?? 'A description was not added to this offer.'}
 	</p>
+	<!-- <div>
+		<button class="modify" on:click={subbutton_click}>Modify...</button>
+		<button class="delete">Delete...</button>
+	</div> -->
 </button>
 
 <style>
@@ -39,4 +46,10 @@
 	.offer:hover {
 		border-color: beige;
 	}
+
+	/* .modify {
+		cursor: pointer;
+		border-color: beige;
+		background-color: var(--bg-color);
+	} */
 </style>
