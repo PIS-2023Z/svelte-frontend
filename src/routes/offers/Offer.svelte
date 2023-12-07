@@ -1,28 +1,28 @@
 <script lang="ts">
-	import type { JobOffer } from '$lib/index';
+	import { goto } from '$app/navigation';
+	import type { ApiOffer } from '$lib/types';
 
-	export let offer: JobOffer;
-	export let href: string;
-
-	const subbutton_click = (event: Event) => {
-		event.stopPropagation();
-		console.log('Sub-button pressed.');
-	};
+	export let offer: ApiOffer;
 </script>
 
 <button
 	class="offer"
 	on:click={() => {
-		window.location.href = href;
+		goto(`/offers/${offer.id}`);
 	}}
 >
 	<h2 class="name">{offer.name}</h2>
 	<h3 class="salary">
 		Salary: {offer.salary?.toString() ?? 'not specified'}
 	</h3>
-	<p class="description">
-		{offer.description ?? 'A description was not added to this offer.'}
-	</p>
+	<div class="dates">
+		<p class="published_date">
+			Date published: {offer.date_published.toDateString()}
+		</p>
+		<p class="expiration_date">
+			Expiration date: {offer.expiration_date.toDateString()}
+		</p>
+	</div>
 </button>
 
 <style>
@@ -30,5 +30,10 @@
 		width: 50%;
 		border-radius: 30px;
 		border-width: 5px;
+	}
+	.dates {
+		display: flex;
+		justify-content: space-between;
+		margin: 0 40px;
 	}
 </style>

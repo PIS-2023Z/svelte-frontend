@@ -1,18 +1,18 @@
 <script lang="ts">
-	import { JobOffer } from '$lib';
+	import type { ApiOfferResponse } from '$lib/types';
 	import Offer from './Offer.svelte';
 
-	export let data;
+	export let data: ApiOfferResponse;
+
+	const handle_new_offer = () => {};
 </script>
 
 <h1>Offers</h1>
+<button on:click={handle_new_offer}>Add new offer...</button>
 <div>
 	{#each data.data as offer (offer.id)}
 		<div class="offer_div">
-			<Offer
-				offer={JobOffer.from_api_offer(offer)}
-				href="/offers/{offer.id}"
-			/>
+			<Offer {offer} />
 		</div>
 	{/each}
 </div>

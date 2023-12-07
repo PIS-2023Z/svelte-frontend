@@ -15,7 +15,7 @@
             "date_published": "2023-08-20T21:04:08.428Z",
             "expiration_date": "2023-09-01T02:04:00.000Z",
             "status": "available",
-            "salary": "10000",
+            "salary": 10000,
             "description": "This is a rather well paid job."
         }
     ]
