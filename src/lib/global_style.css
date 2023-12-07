@@ -50,6 +50,7 @@ h1,
 h2,
 h3,
 p,
+label,
 nav a {
     font-family: Poppins, Arial, Helvetica, sans-serif;
     color: var(--text-color);

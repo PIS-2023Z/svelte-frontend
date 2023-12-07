@@ -1,10 +1,11 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import ConfirmationBox from './ConfirmationBox.svelte';
 
 	export let data;
 	let show_confirmation = false;
 	const handleModifyClick = () => {
-		window.location.href = `/offers/${data.id}/modify`;
+		goto(`./${data.id}/modify`);
 	};
 	const handleDeleteClick = () => {
 		show_confirmation = true;
