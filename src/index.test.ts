@@ -7,10 +7,10 @@ describe('Parse offer test', () => {
 		let input: ApiOffer = {
 			id: 1,
 			name: 'name',
-			date_published: new Date(),
-			expiration_date: new Date(),
-			status: JobStatus.AVAILABLE,
-			salary: 1000,
+			publishedAt: new Date(),
+			expiresAt: new Date(),
+			status: JobStatus.GOING,
+			monthlySalary: 1000,
 			description: 'description'
 		};
 		let text = JSON.stringify(input);
@@ -22,20 +22,16 @@ describe('Parse offer test', () => {
 		let offer: ApiOffer = {
 			id: 1,
 			name: 'name',
-			date_published: new Date(),
-			expiration_date: new Date(),
-			status: JobStatus.AVAILABLE,
-			salary: 1000,
+			publishedAt: new Date(),
+			expiresAt: new Date(),
+			status: JobStatus.GOING,
+			monthlySalary: 1000,
 			description: 'description'
 		};
-		let input: ApiOfferResponse = {
-			data: [offer]
-		};
+		let input: ApiOfferResponse = [offer];
 		let text = JSON.stringify(input);
 		let result = parse_offer_list(text);
-		let result_data = result.data[0];
 		expect(result).toEqual(input);
-		expect(result.data).toBeInstanceOf(Array<ApiOffer>);
-		expect(result_data).toEqual(offer);
+		expect(result).toBeInstanceOf(Array<ApiOffer>);
 	});
 });

@@ -1,10 +1,13 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import type { ApiOfferResponse } from '$lib/types';
 	import Offer from './Offer.svelte';
 
-	export let data: ApiOfferResponse;
+	export let data: { data: ApiOfferResponse };
 
-	const handle_new_offer = () => {};
+	const handle_new_offer = () => {
+		goto('/offers/add');
+	};
 </script>
 
 <h1>Offers</h1>

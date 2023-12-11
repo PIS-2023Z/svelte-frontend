@@ -1,48 +1,56 @@
 <script lang="ts">
-	export let data: { slug: string };
+	export let data: { slug: string; data: ApiOffer };
 	import { goto } from '$app/navigation';
 	import { JobStatus } from '$lib';
 	import type { ApiOffer } from '$lib/types';
-	let new_data: ApiOffer = {
-		id: 1,
-		name: 'Some new offer',
-		date_published: new Date(),
-		expiration_date: new Date(),
-		status: JobStatus.AVAILABLE,
-		salary: null,
-		description: null
-	};
 	const quit = () => {
 		goto(`../${data.slug}`);
 	};
-	const handleSubmit = async () => {
-		await fetch('/api/offer/update', {
-			method: 'PUT',
-			body: JSON.stringify(new_data),
-			headers: { 'Content-Type': 'application/json' }
-		});
-		goto(`../${data.slug}`);
-	};
+	let date = data.data.expiresAt.toISOString().substring(0, 10);
+	$: data.data.expiresAt = new Date(date);
 </script>
 
-<form on:submit={handleSubmit}>
+<form method="post">
 	<div class="form">
 		<label for="name">Offer name: </label>
-		<input name="name" type="text" bind:value={new_data.name} required />
+		<input name="name" type="text" bind:value={data.data.name} required />
 
 		<label for="date">Expiration date: </label>
-		<input
-			name="date"
-			type="date"
-			bind:value={new_data.expiration_date}
-			required
-		/>
+		<input name="date" type="date" bind:value={date} required />
 
 		<label for="salary">Salary:</label>
-		<input type="number" name="salary" bind:value={new_data.salary} />
+		<input type="number" name="salary" bind:value={data.data.monthlySalary} />
 
 		<label for="description">Job description: </label>
-		<textarea name="description" bind:value={new_data.description}></textarea>
+		<textarea name="description" bind:value={data.data.description}></textarea>
+
+		<label for="status">Status:</label>
+		<div>
+			<label for="status">Going</label>
+			<input
+				type="radio"
+				id="going"
+				name="status"
+				value="GOING"
+				checked={data.data.status == JobStatus.GOING}
+			/>
+			<label for="status">Expired</label>
+			<input
+				type="radio"
+				id="expired"
+				name="status"
+				value="EXPIRED"
+				checked={data.data.status == JobStatus.EXPIRED}
+			/>
+			<label for="status">Closed</label>
+			<input
+				type="radio"
+				id="closed"
+				name="status"
+				value="CLOSED"
+				checked={data.data.status == JobStatus.CLOSED}
+			/>
+		</div>
 	</div>
 	<div class="buttons">
 		<button type="button" on:click={quit}>Back...</button>

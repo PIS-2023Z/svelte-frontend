@@ -16,9 +16,9 @@
 </script>
 
 <h1>{data.name}</h1>
-<p>Creation date: {data.date_published.toDateString()}</p>
-<p>Expiration date: {data.expiration_date.toDateString()}</p>
-<p>Salary: {data.salary?.toString() ?? 'not specified.'}</p>
+<p>Creation date: {data.publishedAt.toDateString()}</p>
+<p>Expiration date: {data.expiresAt.toDateString()}</p>
+<p>Salary: {data.monthlySalary?.toString() ?? 'not specified.'}</p>
 <p>Description: {data.description ?? 'not specified.'}</p>
 
 {#if show_confirmation}

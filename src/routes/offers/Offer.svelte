@@ -13,14 +13,14 @@
 >
 	<h2 class="name">{offer.name}</h2>
 	<h3 class="salary">
-		Salary: {offer.salary?.toString() ?? 'not specified'}
+		Salary: {offer.monthlySalary?.toString() ?? 'not specified'}
 	</h3>
 	<div class="dates">
 		<p class="published_date">
-			Date published: {offer.date_published.toDateString()}
+			Date published: {offer.publishedAt.toDateString()}
 		</p>
 		<p class="expiration_date">
-			Expiration date: {offer.expiration_date.toDateString()}
+			Expiration date: {offer.expiresAt.toDateString()}
 		</p>
 	</div>
 </button>

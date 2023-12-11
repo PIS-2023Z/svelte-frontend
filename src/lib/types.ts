@@ -3,13 +3,11 @@ import type { JobStatus } from '$lib';
 export type ApiOffer = {
 	id: number;
 	name: string;
-	date_published: Date;
-	expiration_date: Date;
+	publishedAt: Date;
+	expiresAt: Date;
 	status: JobStatus;
-	salary: number | null;
+	monthlySalary: number | null;
 	description: string | null;
 };
 
-export type ApiOfferResponse = {
-	data: Array<ApiOffer>;
-};
+export type ApiOfferResponse = Array<ApiOffer>;
