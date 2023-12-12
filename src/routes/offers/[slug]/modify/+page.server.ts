@@ -19,12 +19,12 @@ export const actions: Actions = {
 		const data = await request.formData();
 
 		let new_data: ApiOffer = {
-			id: Number.parseInt(params.slug),
+			id: Number.parseInt(params.slug ?? '0'),
 			name: data.get('name') as string,
 			publishedAt: new Date(),
-			expiresAt: new Date(data.get('date')),
+			expiresAt: new Date(data.get('date') as string),
 			status: data.get('status') as JobStatus,
-			monthlySalary: Number.parseInt(data.get('salary')),
+			monthlySalary: Number.parseInt(data.get('salary') as string),
 			description: data.get('description') as string | null
 		};
 

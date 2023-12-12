@@ -11,7 +11,7 @@ export const actions: Actions = {
 		console.log(salary_str);
 		let salary: number | null;
 		if (salary_str !== null && !!salary_str) {
-			salary = Number.parseInt(salary_str);
+			salary = Number.parseInt(salary_str as string);
 		} else {
 			salary = null;
 		}
@@ -19,7 +19,7 @@ export const actions: Actions = {
 			id: 0,
 			name: data.get('name') as string,
 			publishedAt: new Date(),
-			expiresAt: new Date(data.get('date')),
+			expiresAt: new Date(data.get('date') as string),
 			status: JobStatus.GOING,
 			monthlySalary: salary,
 			description: data.get('description') as string | null
