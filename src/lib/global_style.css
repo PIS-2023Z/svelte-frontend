@@ -25,6 +25,7 @@ button {
     border-radius: 5px;
     border-style: solid;
     background-color: var(--bg-color);
+    transition: border-color .25s ease;
 }
 
 button:hover {
@@ -70,4 +71,13 @@ textarea {
     resize: none;
     color: var(--text-color);
     font-family: Poppins, Arial, Helvetica, sans-serif;
+    transition: border-color .25s ease;
+}
+
+input[type="number"]:hover,
+input[type="text"]:hover,
+input[type="date"]:hover,
+textarea:hover {
+
+    border-color: var(--dark-accent-color);
 }
