@@ -1,7 +1,3 @@
-// export const load: PageServerLoad = async ({ params }) => {
-// 	return { slug: params.slug };
-// };
-
 import { BACKEND_BASE_URL } from '$env/static/private';
 import { JobStatus, parse_offer_list } from '$lib';
 import type { ApiOffer } from '$lib/types';

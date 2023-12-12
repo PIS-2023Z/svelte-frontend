@@ -25,31 +25,37 @@
 		<textarea name="description" bind:value={data.data.description}></textarea>
 
 		<label for="status">Status:</label>
-		<div>
-			<label for="status">Going</label>
-			<input
-				type="radio"
-				id="going"
-				name="status"
-				value="GOING"
-				checked={data.data.status == JobStatus.GOING}
-			/>
-			<label for="status">Expired</label>
-			<input
-				type="radio"
-				id="expired"
-				name="status"
-				value="EXPIRED"
-				checked={data.data.status == JobStatus.EXPIRED}
-			/>
-			<label for="status">Closed</label>
-			<input
-				type="radio"
-				id="closed"
-				name="status"
-				value="CLOSED"
-				checked={data.data.status == JobStatus.CLOSED}
-			/>
+		<div class="status-radio">
+			<div>
+				<label for="going">Going</label>
+				<input
+					type="radio"
+					id="going"
+					name="status"
+					value="GOING"
+					checked={data.data.status == JobStatus.GOING}
+				/>
+			</div>
+			<div>
+				<label for="expired">Expired</label>
+				<input
+					type="radio"
+					id="expired"
+					name="status"
+					value="EXPIRED"
+					checked={data.data.status == JobStatus.EXPIRED}
+				/>
+			</div>
+			<div>
+				<label for="closed">Closed</label>
+				<input
+					type="radio"
+					id="closed"
+					name="status"
+					value="CLOSED"
+					checked={data.data.status == JobStatus.CLOSED}
+				/>
+			</div>
 		</div>
 	</div>
 	<div class="buttons">
@@ -76,5 +82,9 @@
 		/* float: right;
 		width: calc(100% - 200px); */
 		grid-column: 2/3;
+	}
+	.status-radio {
+		display: flex;
+		justify-content: space-between;
 	}
 </style>

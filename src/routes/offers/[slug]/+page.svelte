@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import ConfirmationBox from './ConfirmationBox.svelte';
+	import type { ApiOffer } from '$lib/types';
 
-	export let data;
+	export let data: ApiOffer;
 	let show_confirmation = false;
 	const handleModifyClick = () => {
 		goto(`./${data.id}/modify`);
@@ -10,7 +10,7 @@
 	const handleDeleteClick = () => {
 		show_confirmation = true;
 	};
-	const handleConfirm = () => {
+	const hideConfirmation = () => {
 		show_confirmation = false;
 	};
 </script>
@@ -21,16 +21,38 @@
 <p>Salary: {data.monthlySalary?.toString() ?? 'not specified.'}</p>
 <p>Description: {data.description ?? 'not specified.'}</p>
 
-{#if show_confirmation}
-	<ConfirmationBox
-		on:cancel={() => {
-			show_confirmation = false;
-		}}
-		on:confirm={handleConfirm}
-	/>
-{:else}
+<!-- <form method="post">
+	<input type="hidden" value={data.id} name="id" />
+	{#if show_confirmation}
+		<div>
+			<p>Are you sure?</p>
+			<div>
+				<button class="cancel" type="button" on:click={hideConfirmation}
+					>Cancel</button
+				>
+				<button class="delete" on:click={hideConfirmation}>Confirm</button>
+			</div>
+		</div>
+	{:else}
+		<div>
+			<button class="modify" type="button" on:click={handleModifyClick}
+				>Modify...</button
+			>
+			<button class="delete" type="button" on:click={handleDeleteClick}
+				>Delete...</button
+			>
+		</div>
+	{/if}
+</form> -->
+
+<form method="post">
+	<input type="hidden" value={data.id} name="id" />
 	<div>
-		<button class="modify" on:click={handleModifyClick}>Modify...</button>
-		<button class="delete" on:click={handleDeleteClick}>Delete...</button>
+		<button class="modify" type="button" on:click={handleModifyClick}
+			>Modify...</button
+		>
+		<button class="delete" type="submit" on:click={handleDeleteClick}
+			>Delete...</button
+		>
 	</div>
-{/if}
+</form>
