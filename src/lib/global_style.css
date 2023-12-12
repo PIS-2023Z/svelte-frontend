@@ -23,6 +23,7 @@ button {
     color: beige;
     border-color: beige;
     border-radius: 5px;
+    border-style: solid;
     background-color: var(--bg-color);
 }
 
@@ -54,4 +55,19 @@ label,
 nav a {
     font-family: Poppins, Arial, Helvetica, sans-serif;
     color: var(--text-color);
+}
+
+input[type="number"],
+input[type="text"],
+input[type="date"],
+textarea {
+    background-color: var(--bg-color);
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 6px;
+    border-color: var(--text-color);
+    border-image: auto;
+    resize: none;
+    color: var(--text-color);
+    font-family: Poppins, Arial, Helvetica, sans-serif;
 }

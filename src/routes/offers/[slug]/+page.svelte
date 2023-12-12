@@ -20,8 +20,9 @@
 <p>Expiration date: {data.expiresAt.toDateString()}</p>
 <p>Salary: {data.monthlySalary?.toString() ?? 'not specified.'}</p>
 <p>Description: {data.description ?? 'not specified.'}</p>
+<p>Status: {data.status}</p>
 
-<!-- <form method="post">
+<form method="post">
 	<input type="hidden" value={data.id} name="id" />
 	{#if show_confirmation}
 		<div>
@@ -30,7 +31,7 @@
 				<button class="cancel" type="button" on:click={hideConfirmation}
 					>Cancel</button
 				>
-				<button class="delete" on:click={hideConfirmation}>Confirm</button>
+				<button class="delete" type="submit">Confirm</button>
 			</div>
 		</div>
 	{:else}
@@ -43,16 +44,4 @@
 			>
 		</div>
 	{/if}
-</form> -->
-
-<form method="post">
-	<input type="hidden" value={data.id} name="id" />
-	<div>
-		<button class="modify" type="button" on:click={handleModifyClick}
-			>Modify...</button
-		>
-		<button class="delete" type="submit" on:click={handleDeleteClick}
-			>Delete...</button
-		>
-	</div>
 </form>

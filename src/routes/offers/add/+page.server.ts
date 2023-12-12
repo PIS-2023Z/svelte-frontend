@@ -1,7 +1,7 @@
 import { BACKEND_BASE_URL } from '$env/static/private';
 import { JobStatus } from '$lib';
 import type { ApiOffer } from '$lib/types';
-import type { Actions } from '@sveltejs/kit';
+import { error, redirect, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
 	default: async ({ request, params }) => {
@@ -34,10 +34,12 @@ export const actions: Actions = {
 		}).then((response) => {
 			switch (response.status) {
 				case 200:
+					throw redirect(303, '/offers/');
 					break;
 
 				default:
 					console.log(response.status);
+					throw error(response.status);
 					break;
 			}
 		});
