@@ -4,8 +4,13 @@ import type { ApiOffer } from '$lib/types';
 import { error, redirect, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ fetch, params }) => {
-	const response = await fetch(`${BACKEND_BASE_URL}/api/offer/all`);
+export const load: PageServerLoad = async ({ fetch, params, cookies }) => {
+	const token = cookies.get('token')!;
+	const response = await fetch(`${BACKEND_BASE_URL}/api/offer/all`, {
+		headers: {
+			Authorization: `Bearer ${token}`
+		}
+	});
 	const data = parse_offer_list(await response.text());
 	const result = data.find(
 		(offer) => offer.id === Number.parseInt(params.slug)
@@ -15,8 +20,9 @@ export const load: PageServerLoad = async ({ fetch, params }) => {
 };
 
 export const actions: Actions = {
-	default: async ({ request, params }) => {
+	default: async ({ request, params, cookies }) => {
 		const data = await request.formData();
+		const token = cookies.get('token')!;
 
 		let new_data: ApiOffer = {
 			id: Number.parseInt(params.slug ?? '0'),
@@ -33,7 +39,10 @@ export const actions: Actions = {
 		await fetch(`${BACKEND_BASE_URL}/api/offer/update`, {
 			method: 'PUT',
 			body: JSON.stringify(new_data),
-			headers: { 'Content-Type': 'application/json' }
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`
+			}
 		}).then((response) => {
 			switch (response.status) {
 				case 200:

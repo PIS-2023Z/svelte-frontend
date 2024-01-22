@@ -4,8 +4,9 @@ import type { ApiOffer } from '$lib/types';
 import { error, redirect, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
-	default: async ({ request, params }) => {
+	default: async ({ request, params, cookies }) => {
 		const data = await request.formData();
+		const token = cookies.get('token')!;
 
 		let salary_str = data.get('salary');
 		console.log(salary_str);
@@ -30,7 +31,10 @@ export const actions: Actions = {
 		await fetch(`${BACKEND_BASE_URL}/api/offer/add`, {
 			method: 'POST',
 			body: JSON.stringify(new_data),
-			headers: { 'Content-Type': 'application/json' }
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`
+			}
 		}).then((response) => {
 			switch (response.status) {
 				case 200:

@@ -5,8 +5,12 @@ export const enum JobStatus {
 	EXPIRED = 'EXPIRED',
 	CLOSED = 'CLOSED'
 }
-
+export const enum AccountRole {
+	EMPLOYEE = 'EMPLOYEE',
+	EMPLOYER = 'EMPLOYER'
+}
 const parse_api = (text: string): any => {
+	console.log(text);
 	const reviver = (key: string, value: any) => {
 		if (typeof value === 'string') {
 			let date = new Date(value);
