@@ -26,9 +26,8 @@ export const actions: Actions = {
 			error(400, "given account doesn't exist");
 		}
 		const token = response.headers.get('token')!;
-		console.log(text);
-		cookies.set('email', email, { path: '/' });
-		cookies.set('token', token, { path: '/' });
-		redirect(302, '/');
+		cookies.set('employer_email', email, { path: '/' });
+		cookies.set('employer_token', token, { path: '/' });
+		redirect(303, '/');
 	}
 };

@@ -6,7 +6,7 @@ import { error, redirect, type Actions } from '@sveltejs/kit';
 export const actions: Actions = {
 	default: async ({ request, params, cookies }) => {
 		const data = await request.formData();
-		const token = cookies.get('token')!;
+		const token = cookies.get('employer_token')!;
 
 		let salary_str = data.get('salary');
 		console.log(salary_str);
@@ -38,7 +38,7 @@ export const actions: Actions = {
 		}).then((response) => {
 			switch (response.status) {
 				case 200:
-					throw redirect(303, '/offers/');
+					throw redirect(302, '/offers/');
 					break;
 
 				default:

@@ -5,7 +5,7 @@ import { error, redirect, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ fetch, params, cookies }) => {
-	const token = cookies.get('token')!;
+	const token = cookies.get('employer_token')!;
 	const response = await fetch(`${BACKEND_BASE_URL}/api/offer/all`, {
 		headers: {
 			Authorization: `Bearer ${token}`
@@ -22,7 +22,7 @@ export const load: PageServerLoad = async ({ fetch, params, cookies }) => {
 export const actions: Actions = {
 	default: async ({ request, params, cookies }) => {
 		const data = await request.formData();
-		const token = cookies.get('token')!;
+		const token = cookies.get('employer_token')!;
 
 		let new_data: ApiOffer = {
 			id: Number.parseInt(params.slug ?? '0'),

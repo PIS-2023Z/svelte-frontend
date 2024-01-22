@@ -4,8 +4,8 @@ import { error, redirect, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ fetch, params, cookies }) => {
-	const token = cookies.get('token')!;
-	const response = await fetch(`${BACKEND_BASE_URL}/api/offer/all`, {
+	const token = cookies.get('employer_token')!;
+	const response = await fetch(`${BACKEND_BASE_URL}/api/offer/get-employers`, {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${token}`
@@ -23,7 +23,7 @@ export const actions: Actions = {
 	default: async ({ request, cookies }) => {
 		console.log('request');
 		const data = await request.formData();
-		const token = cookies.get('token')!;
+		const token = cookies.get('employer_token')!;
 		await fetch(`${BACKEND_BASE_URL}/api/offer/delete/${data.get('id')}`, {
 			method: 'DELETE',
 			headers: {
@@ -33,7 +33,7 @@ export const actions: Actions = {
 			switch (response.status) {
 				case 204:
 					console.log(response.status);
-					throw redirect(303, '/offers/');
+					throw redirect(302, '/offers/');
 					break;
 
 				default:
