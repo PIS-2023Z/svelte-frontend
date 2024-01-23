@@ -8,6 +8,7 @@
 	<nav>
 		<a href="/">Home</a>
 		<a href="/offers">Manage offers</a>
+		<a href="/applications">Manage applications</a>
 	</nav>
 	{#if data.logged_in}
 		<div class="login_div">

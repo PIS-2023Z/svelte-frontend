@@ -26,3 +26,12 @@ export type AccountData = {
 	// accountNonLocked: boolean,
 	// credentialsNonExpired: boolean,
 };
+
+export type ApplicationData = {
+	id: number;
+	salary: number;
+	hours: number;
+	account: AccountData;
+	offer: ApiOffer;
+	cvId: string;
+};

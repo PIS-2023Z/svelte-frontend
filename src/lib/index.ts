@@ -1,4 +1,4 @@
-import type { ApiOffer, ApiOfferResponse } from './types';
+import type { ApiOffer, ApiOfferResponse, ApplicationData } from './types';
 
 export const enum JobStatus {
 	GOING = 'GOING',
@@ -23,5 +23,8 @@ const parse_api = (text: string): any => {
 
 export const parse_api_offer: (text: string) => ApiOffer = parse_api;
 export const parse_offer_list: (text: string) => ApiOfferResponse = parse_api;
+export const parse_applications: (text: string) => Array<ApplicationData> =
+	parse_api;
+export const parse_application: (text: string) => ApplicationData = parse_api;
 
 export const backend_url = import.meta.env.BACKEND_BASE_URL;

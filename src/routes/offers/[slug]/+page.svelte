@@ -22,7 +22,7 @@
 <p>Description: {data.description ?? 'not specified.'}</p>
 <p>Status: {data.status}</p>
 
-<form method="post">
+<form method="get">
 	<input type="hidden" value={data.id} name="id" />
 	{#if show_confirmation}
 		<div>
