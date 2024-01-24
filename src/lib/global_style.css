@@ -71,6 +71,7 @@ input[type='date'],
 input[type='email'],
 input[type='password'],
 input[type='tel'],
+select,
 textarea {
 	background-color: var(--bg-color);
 	border-style: solid;
@@ -84,12 +85,15 @@ textarea {
 	transition: border-color 0.25s ease;
 }
 
+
+
 input[type='number']:hover,
 input[type='text']:hover,
 input[type='date']:hover,
 input[type='email']:hover,
 input[type='password']:hover,
 input[type='tel']:hover,
+select:hover,
 textarea:hover {
 	border-color: var(--light-blue);
 }

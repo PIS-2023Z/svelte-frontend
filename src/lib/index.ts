@@ -26,5 +26,3 @@ export const parse_offer_list: (text: string) => ApiOfferResponse = parse_api;
 export const parse_applications: (text: string) => Array<ApplicationData> =
 	parse_api;
 export const parse_application: (text: string) => ApplicationData = parse_api;
-
-export const backend_url = import.meta.env.BACKEND_BASE_URL;

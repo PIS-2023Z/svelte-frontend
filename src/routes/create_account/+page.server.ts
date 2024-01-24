@@ -19,6 +19,6 @@ export const actions: Actions = {
 			headers: { 'Content-Type': 'application/json' }
 		});
 		console.log(response.status);
-		redirect(302, '/');
+		throw redirect(302, '/');
 	}
 };

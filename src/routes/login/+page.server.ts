@@ -16,18 +16,18 @@ export const actions: Actions = {
 			headers: { 'Content-Type': 'application/json' }
 		});
 		if (response.status === 400) {
-			error(400, "given account doesn't exist");
+			throw error(400, "given account doesn't exist");
 		}
 		const text = await response.text();
 		const account_data = JSON.parse(text) as AccountData;
 		console.log(account_data.accountRole);
 		if (account_data.accountRole !== AccountRole.EMPLOYER) {
 			console.log('error');
-			error(400, "given account doesn't exist");
+			throw error(400, "given account doesn't exist");
 		}
 		const token = response.headers.get('token')!;
 		cookies.set('employer_email', email, { path: '/' });
 		cookies.set('employer_token', token, { path: '/' });
-		redirect(303, '/');
+		throw redirect(303, '/');
 	}
 };

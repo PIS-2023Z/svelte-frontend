@@ -17,35 +17,55 @@ export const load: PageServerLoad = async ({ fetch, params, cookies }) => {
 	return parse_application(await response.text());
 };
 
+const base64ToBlob = (data: string, mime_type: string): Blob => {
+	const chars = atob(data);
+	const numbers = new Array(chars.length);
+	for (let i = 0; i < chars.length; i++) {
+		numbers[i] = chars.charCodeAt(i);
+	}
+	const byte_array = new Uint8Array(numbers);
+	return new Blob([byte_array], { type: mime_type });
+};
+
 export const actions: Actions = {
 	default: async ({ cookies, request, fetch }) => {
 		const token = cookies.get('employer_token')!;
 		const data = await request.formData();
 		const id = data.get('id')!.toString();
 		console.log(id);
-		const response = await fetch(`${BACKEND_BASE_URL}/api/cv/files/${id}`, {
-			method: 'GET',
-			headers: {
-				Authorization: `Bearer ${token}`,
-				'Content-Type': 'application/pdf'
+		const response = await fetch(
+			`${BACKEND_BASE_URL}/api/cv/download-bin/${id}`,
+			{
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${token}`
+					// 'Content-Type': 'application/pdf'
+				}
 			}
-		});
-		console.log(response.status);
-		const blob = await response.blob();
-		console.log(blob.type);
-		console.log(await blob.text());
-		const pdf_data = JSON.parse(await blob.text()) as {
-			id: string;
-			data: { type: number; data: string };
-		};
-		const pdf_blob = new Blob([pdf_data.data.data]);
+		);
+		console.log(await response.text());
 		return {
-			status: 200,
-			headers: {
-				'Content-Type': 'application/pdf',
-				'Content-Disposition': 'attachment; filename=cv.pdf'
-			},
-			body: pdf_blob
+			...response,
+			headers: { 'Content-Disposition': 'attachment; filename=cv.pdf' }
 		};
+		// const blob = await response.blob();
+		// console.log(blob.type);
+		// console.log(await blob.text());
+		// const pdf_data = JSON.parse(await blob.text()) as {
+		// 	id: string;
+		// 	data: { type: number; data: string };
+		// };
+		// console.log('parsed');
+		// const pdf_blob = base64ToBlob(pdf_data.data.data, 'application/pdf');
+
+		// console.log('blobed');
+		// return {
+		// 	status: 200,
+		// 	headers: {
+		// 		'Content-Type': 'application/pdf',
+		// 		'Content-Disposition': 'attachment; filename=cv.pdf'
+		// 	},
+		// 	body: pdf_blob
+		// };
 	}
 };
