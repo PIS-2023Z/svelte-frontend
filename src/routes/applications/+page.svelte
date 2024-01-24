@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import Application from '$lib/Application.svelte';
 
 	export let data;
+	$: console.log($page.url.searchParams.get('phrase'));
 </script>
 
 {#if data.logged_in}
@@ -13,11 +15,20 @@
 	<div class="select_list">
 		<form method="post">
 			<select name="select_list" id="select_list" value={data.offer_id}>
-				<option value={undefined}>Filter by offer...</option>
+				<option value={$page.url.searchParams.get('offerId') ?? undefined}
+					>Filter by offer...</option
+				>
 				{#each data.offers as offer (offer.id)}
 					<option value={offer.id}>{offer.name}</option>
 				{/each}
 			</select>
+			<p>or</p>
+			<input
+				type="text"
+				name="phrase"
+				placeholder="by phrase..."
+				value={$page.url.searchParams.get('phrase') ?? ''}
+			/>
 			<button type="submit">Submit</button>
 		</form>
 	</div>

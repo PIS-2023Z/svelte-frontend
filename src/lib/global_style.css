@@ -97,3 +97,7 @@ select:hover,
 textarea:hover {
 	border-color: var(--light-blue);
 }
+
+input[type='text']::placeholder {
+	color: var(--text-color);
+}

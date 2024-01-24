@@ -17,35 +17,28 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
 				}
 			}
 		);
-		const offer_id = url.searchParams.get('offerId') ?? '';
 		const offer_text = await offer_response.text();
 		const offers = parse_offer_list(offer_text);
-		let data: Array<ApplicationData>;
-		if (offer_id === '') {
-			const response = await fetch(
-				`${BACKEND_BASE_URL}/api/application/get-by-employer`,
-				{
-					method: 'GET',
-					headers: {
-						Authorization: `Bearer ${token}`
-					}
-				}
-			);
-			const text = await response.text();
-			data = parse_applications(text);
+		const offer_id = url.searchParams.get('offerId') ?? '';
+		const phrase = url.searchParams.get('phrase') ?? '';
+		let fetched_url: string;
+
+		if (offer_id !== '') {
+			fetched_url = `${BACKEND_BASE_URL}/api/application/viewByOffer/${offer_id}`;
+		} else if (phrase !== '') {
+			fetched_url = `${BACKEND_BASE_URL}/api/application/getAppByStr/${phrase}`;
 		} else {
-			const response = await fetch(
-				`${BACKEND_BASE_URL}/api/application/viewByOffer/${offer_id}`,
-				{
-					method: 'GET',
-					headers: {
-						Authorization: `Bearer ${token}`
-					}
-				}
-			);
-			const text = await response.text();
-			data = parse_applications(text);
+			fetched_url = `${BACKEND_BASE_URL}/api/application/get-by-employer`;
 		}
+
+		const response = await fetch(fetched_url, {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		});
+		const text = await response.text();
+		const data = parse_applications(text);
 		return {
 			data: data,
 			offers,
@@ -63,13 +56,20 @@ export const actions: Actions = {
 	default: async ({ url, request }) => {
 		const data = await request.formData();
 		const id = data.get('select_list')?.toString() ?? '';
+		const phrase = data.get('phrase')?.toString() ?? '';
 		console.log('filtering...');
 		console.log({ id });
-		if (id.trim().length === 0) {
+		if (id.trim().length !== 0) {
+			url.searchParams.delete('phrase');
+			url.searchParams.set('offerId', id);
+			redirect(302, url);
+		} else if (phrase.trim().length !== 0) {
+			url.searchParams.set('phrase', phrase);
 			url.searchParams.delete('offerId');
 			redirect(302, url);
 		} else {
-			url.searchParams.set('offerId', id);
+			url.searchParams.delete('offerId');
+			url.searchParams.delete('phrase');
 			redirect(302, url);
 		}
 	}
