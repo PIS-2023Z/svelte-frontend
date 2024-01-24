@@ -3,7 +3,8 @@
 	import Application from '$lib/Application.svelte';
 
 	export let data;
-	$: console.log($page.url.searchParams.get('phrase'));
+	$: phrase = $page.url.searchParams.get('phrase');
+	$: offer_id = $page.url.searchParams.get('offerId');
 </script>
 
 {#if data.logged_in}
@@ -14,22 +15,34 @@
 	{/if}
 	<div class="select_list">
 		<form method="post">
+			<input
+				type="radio"
+				name="search_option"
+				value="list"
+				checked={offer_id !== null}
+			/>
 			<select name="select_list" id="select_list" value={data.offer_id}>
-				<option value={$page.url.searchParams.get('offerId') ?? undefined}
-					>Filter by offer...</option
-				>
+				<option value={offer_id ?? undefined}>Filter by offer...</option>
 				{#each data.offers as offer (offer.id)}
 					<option value={offer.id}>{offer.name}</option>
 				{/each}
 			</select>
 			<p>or</p>
 			<input
+				type="radio"
+				name="search_option"
+				value="text"
+				checked={phrase !== null}
+			/>
+			<input
 				type="text"
 				name="phrase"
 				placeholder="by phrase..."
-				value={$page.url.searchParams.get('phrase') ?? ''}
+				value={phrase ?? ''}
 			/>
-			<button type="submit">Submit</button>
+			<button type="submit"
+				>{offer_id !== null && phrase !== null ? 'Reset' : 'Submit'}</button
+			>
 		</form>
 	</div>
 	{#each data.data as app (app.id)}

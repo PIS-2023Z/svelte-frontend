@@ -57,13 +57,16 @@ export const actions: Actions = {
 		const data = await request.formData();
 		const id = data.get('select_list')?.toString() ?? '';
 		const phrase = data.get('phrase')?.toString() ?? '';
-		console.log('filtering...');
-		console.log({ id });
-		if (id.trim().length !== 0) {
+		const option = data.get('search_option')?.toString() as
+			| 'text'
+			| 'list'
+			| null;
+		console.log({ option });
+		if (option === 'list' && id.trim().length !== 0) {
 			url.searchParams.delete('phrase');
 			url.searchParams.set('offerId', id);
 			redirect(302, url);
-		} else if (phrase.trim().length !== 0) {
+		} else if (option === 'text' && phrase.trim().length !== 0) {
 			url.searchParams.set('phrase', phrase);
 			url.searchParams.delete('offerId');
 			redirect(302, url);
